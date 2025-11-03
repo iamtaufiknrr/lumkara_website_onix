@@ -60,17 +60,17 @@ class LumakaraDynamic {
         return filename || 'index';
     }
 
-    loadHomePage() {
-        this.loadLatestBlogPosts();
-        this.loadFeaturedServices();
+    async loadHomePage() {
+        await this.loadLatestBlogPosts();
+        await this.loadFeaturedServices();
         this.loadCommonElements();
     }
 
-    loadLatestBlogPosts() {
+    async loadLatestBlogPosts() {
         const blogContainer = document.querySelector('#latest-blog-posts');
         if (!blogContainer) return;
 
-        const posts = this.api.getBlogPosts(3); // Get latest 3 posts
+        const posts = await this.api.getBlogPosts(3); // Get latest 3 posts
         
         let blogHTML = '';
         posts.forEach(post => {
@@ -105,11 +105,11 @@ class LumakaraDynamic {
         blogContainer.innerHTML = blogHTML;
     }
 
-    loadFeaturedServices() {
+    async loadFeaturedServices() {
         const servicesContainer = document.querySelector('#featured-services');
         if (!servicesContainer) return;
 
-        const services = this.api.getServices().slice(0, 6); // Get first 6 services
+        const services = (await this.api.getServices()).slice(0, 6); // Get first 6 services
         
         let servicesHTML = '';
         services.forEach((service, index) => {

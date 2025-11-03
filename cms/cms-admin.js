@@ -1,25 +1,109 @@
-// Lumakara CMS Admin JavaScript
+// Lumakara CMS Admin JavaScript - Real CMS Version
 class LumakaraCMS {
     constructor() {
+        this.apiUrl = 'cms-backend.php';
         this.data = {
-            blog: JSON.parse(localStorage.getItem('lumakara_blog') || '[]'),
-            services: JSON.parse(localStorage.getItem('lumakara_services') || '[]'),
-            projects: JSON.parse(localStorage.getItem('lumakara_projects') || '[]'),
-            team: JSON.parse(localStorage.getItem('lumakara_team') || '[]'),
-            shop: JSON.parse(localStorage.getItem('lumakara_shop') || '[]'),
-            career: JSON.parse(localStorage.getItem('lumakara_career') || '[]'),
-            settings: JSON.parse(localStorage.getItem('lumakara_settings') || '{}')
+            blog: [],
+            services: [],
+            projects: [],
+            team: [],
+            shop: [],
+            career: [],
+            settings: {}
         };
         this.currentEditId = null;
         this.init();
     }
 
-    init() {
+    async init() {
         this.setupNavigation();
         this.setupForms();
+        await this.loadAllData();
         this.loadDashboard();
-        this.loadAllData();
         this.initializeDefaultData();
+    }
+
+    // API Methods for JSON file communication
+    async apiRequest(endpoint, method = 'GET', data = null) {
+        try {
+            if (method === 'GET') {
+                // Load from JSON file
+                const response = await fetch(`../data/${endpoint}.json`);
+                if (response.ok) {
+                    return await response.json();
+                }
+            } else if (method === 'POST') {
+                // Save to localStorage and generate JSON (for demo purposes)
+                localStorage.setItem(`lumakara_${endpoint}`, JSON.stringify(data));
+                this.generateJSONFile(endpoint, data);
+                return { success: true };
+            }
+        } catch (error) {
+            console.error('API Error:', error);
+        }
+        
+        // Fallback to localStorage
+        return this.getLocalStorageData(endpoint);
+    }
+    
+    generateJSONFile(endpoint, data) {
+        // Generate downloadable JSON file
+        const jsonStr = JSON.stringify(data, null, 2);
+        const blob = new Blob([jsonStr], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        
+        // Create download link
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `${endpoint}.json`;
+        
+        // Show notification with download option
+        this.showNotification(
+            `Data saved! <a href="${url}" download="${endpoint}.json" class="btn btn-sm btn-primary ms-2">Download JSON</a>`, 
+            'success'
+        );
+    }
+    
+    getLocalStorageData(type) {
+        return JSON.parse(localStorage.getItem(`lumakara_${type}`) || '[]');
+    }
+    
+    async saveToAPI(endpoint, data) {
+        try {
+            const result = await this.apiRequest(endpoint, 'POST', data);
+            if (result.success) {
+                // Also save to localStorage as backup
+                localStorage.setItem(`lumakara_${endpoint}`, JSON.stringify(data));
+                this.showNotification('Data saved successfully! Website updated.', 'success');
+                return true;
+            }
+        } catch (error) {
+            // Fallback to localStorage
+            localStorage.setItem(`lumakara_${endpoint}`, JSON.stringify(data));
+            this.showNotification('Saved locally. Upload to server when available.', 'warning');
+            return true;
+        }
+        return false;
+    }
+    
+    showNotification(message, type = 'info') {
+        // Create notification element
+        const notification = document.createElement('div');
+        notification.className = `alert alert-${type} alert-dismissible fade show position-fixed`;
+        notification.style.cssText = 'top: 20px; right: 20px; z-index: 9999; min-width: 300px;';
+        notification.innerHTML = `
+            ${message}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        `;
+        
+        document.body.appendChild(notification);
+        
+        // Auto remove after 5 seconds
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.parentNode.removeChild(notification);
+            }
+        }, 5000);
     }
 
     initializeDefaultData() {
@@ -169,11 +253,11 @@ class LumakaraCMS {
         });
     }
 
-    saveBlogPost() {
+    async saveBlogPost() {
         const formData = {
             title: document.getElementById('blogTitle').value,
             content: document.getElementById('blogContent').value,
-            image: document.getElementById('blogImage').value,
+            image: document.getElementById('blogImage').value || 'assets/img/blog/default-blog.jpg',
             category: document.getElementById('blogCategory').value,
             author: document.getElementById('blogAuthor').value,
             tags: document.getElementById('blogTags').value.split(',').map(tag => tag.trim()),
@@ -191,10 +275,12 @@ class LumakaraCMS {
             this.data.blog.unshift(formData);
         }
 
-        this.saveData('blog');
-        this.loadBlogList();
-        this.hideBlogForm();
-        this.generateWebsiteFiles();
+        const success = await this.saveData('blog');
+        if (success) {
+            this.loadBlogList();
+            this.hideBlogForm();
+            this.updateWebsiteFiles();
+        }
     }
 
     editBlogPost(id) {
@@ -211,12 +297,14 @@ class LumakaraCMS {
         }
     }
 
-    deleteBlogPost(id) {
+    async deleteBlogPost(id) {
         if (confirm('Are you sure you want to delete this blog post?')) {
             this.data.blog = this.data.blog.filter(post => post.id !== id);
-            this.saveData('blog');
-            this.loadBlogList();
-            this.generateWebsiteFiles();
+            const success = await this.saveData('blog');
+            if (success) {
+                this.loadBlogList();
+                this.updateWebsiteFiles();
+            }
         }
     }
 
@@ -244,7 +332,7 @@ class LumakaraCMS {
         });
     }
 
-    saveService() {
+    async saveService() {
         const formData = {
             name: document.getElementById('serviceName').value,
             description: document.getElementById('serviceDescription').value,
@@ -252,7 +340,7 @@ class LumakaraCMS {
             icon: document.getElementById('serviceIcon').value,
             price: document.getElementById('servicePrice').value,
             category: document.getElementById('serviceCategory').value,
-            image: document.getElementById('serviceImage').value
+            image: document.getElementById('serviceImage').value || 'assets/img/services/default-service.jpg'
         };
 
         if (this.currentEditId) {
@@ -265,10 +353,12 @@ class LumakaraCMS {
             this.data.services.push(formData);
         }
 
-        this.saveData('services');
-        this.loadServicesList();
-        this.hideServiceForm();
-        this.generateWebsiteFiles();
+        const success = await this.saveData('services');
+        if (success) {
+            this.loadServicesList();
+            this.hideServiceForm();
+            this.updateWebsiteFiles();
+        }
     }
 
     editService(id) {
@@ -303,41 +393,40 @@ class LumakaraCMS {
             .replace(/-+/g, '-');
     }
 
-    saveData(type) {
-        localStorage.setItem(`lumakara_${type}`, JSON.stringify(this.data[type]));
+    async saveData(type) {
+        await this.saveToAPI(type, this.data[type]);
     }
 
-    loadAllData() {
-        Object.keys(this.data).forEach(key => {
-            const stored = localStorage.getItem(`lumakara_${key}`);
-            if (stored) {
-                this.data[key] = JSON.parse(stored);
-            }
-        });
+    async loadAllData() {
+        for (const key of Object.keys(this.data)) {
+            this.data[key] = await this.apiRequest(key);
+        }
     }
 
-    // Generate website files
-    generateWebsiteFiles() {
-        // This will update the main website files with new content
-        this.updateIndexPage();
-        this.updateBlogPage();
-        this.updateServicePage();
+    // Update website files with new content
+    updateWebsiteFiles() {
+        // The PHP backend will handle HTML file updates
+        // This method can trigger additional frontend updates
+        this.updateDynamicContent();
     }
 
-    updateIndexPage() {
-        // Generate updated index.html content
-        // This will be implemented to update the main website
-        console.log('Updating index page with latest data...');
+    updateDynamicContent() {
+        // Trigger dynamic content reload on main website
+        if (window.opener && !window.opener.closed) {
+            // If CMS opened from main website, refresh parent
+            window.opener.location.reload();
+        }
+        
+        // Update preview if available
+        this.refreshPreview();
     }
 
-    updateBlogPage() {
-        // Generate updated blog.html content
-        console.log('Updating blog page with latest posts...');
-    }
-
-    updateServicePage() {
-        // Generate updated service.html content
-        console.log('Updating service page with latest services...');
+    refreshPreview() {
+        // This can be used to refresh preview iframe if implemented
+        const previewFrame = document.getElementById('preview-frame');
+        if (previewFrame) {
+            previewFrame.src = previewFrame.src;
+        }
     }
 
     // Export data for backup

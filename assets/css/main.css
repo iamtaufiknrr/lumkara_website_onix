@@ -75,7 +75,7 @@ body {
   line-height: 27px;
   color: var(--color-default);
   background-color: var(--color-black);
-  scrollbar-color: var(--color-primary) var(--xb-track-color);
+  scrollbar-color: var(--color-primary) var(--color-default);
   scrollbar-width: thin; }
 
 body::-webkit-scrollbar {

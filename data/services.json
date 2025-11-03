@@ -1,0 +1,56 @@
+[
+  {
+    "id": 1,
+    "name": "Digital Marketing Strategy",
+    "description": "Strategi pemasaran digital yang komprehensif untuk meningkatkan brand awareness, engagement, dan konversi bisnis Anda. Kami menggunakan data-driven approach untuk memastikan setiap campaign memberikan ROI yang optimal.",
+    "features": [
+      "SEO & SEM Optimization",
+      "Social Media Marketing",
+      "Content Strategy & Creation",
+      "Email Marketing Automation",
+      "Analytics & Performance Tracking",
+      "Competitor Analysis",
+      "Brand Positioning Strategy"
+    ],
+    "icon": "fas fa-chart-line",
+    "price": "Mulai dari Rp 5,000,000",
+    "category": "Kickstart",
+    "image": "assets/img/services/digital-marketing.jpg"
+  },
+  {
+    "id": 2,
+    "name": "Website Development",
+    "description": "Pengembangan website profesional yang responsif, cepat, dan SEO-friendly. Dari landing page sederhana hingga e-commerce complex, kami siap mewujudkan visi digital Anda.",
+    "features": [
+      "Responsive Web Design",
+      "CMS Integration (WordPress, Strapi)",
+      "E-commerce Development",
+      "Performance Optimization",
+      "SEO-Friendly Structure",
+      "Security Implementation",
+      "Maintenance & Support"
+    ],
+    "icon": "fas fa-laptop-code",
+    "price": "Mulai dari Rp 10,000,000",
+    "category": "Scale Up",
+    "image": "assets/img/services/website-development.jpg"
+  },
+  {
+    "id": 3,
+    "name": "Business Automation",
+    "description": "Solusi otomasi bisnis untuk meningkatkan efisiensi operasional dan mengurangi biaya. Dari CRM hingga inventory management, kami bantu streamline proses bisnis Anda.",
+    "features": [
+      "Process Automation Design",
+      "CRM System Integration",
+      "Workflow Optimization",
+      "Data Analytics Dashboard",
+      "API Integration",
+      "Cloud Migration",
+      "Training & Documentation"
+    ],
+    "icon": "fas fa-robot",
+    "price": "Mulai dari Rp 15,000,000",
+    "category": "Enterprise",
+    "image": "assets/img/services/business-automation.jpg"
+  }
+]

@@ -5,7 +5,18 @@ class LumakaraAPI {
     }
 
     // Get all blog posts
-    getBlogPosts(limit = null) {
+    async getBlogPosts(limit = null) {
+        try {
+            const response = await fetch('data/blog.json');
+            if (response.ok) {
+                const posts = await response.json();
+                return limit ? posts.slice(0, limit) : posts;
+            }
+        } catch (error) {
+            console.log('Loading from localStorage as fallback');
+        }
+        
+        // Fallback to localStorage
         const posts = JSON.parse(localStorage.getItem(this.baseKey + 'blog') || '[]');
         return limit ? posts.slice(0, limit) : posts;
     }
@@ -17,7 +28,18 @@ class LumakaraAPI {
     }
 
     // Get all services
-    getServices(category = null) {
+    async getServices(category = null) {
+        try {
+            const response = await fetch('data/services.json');
+            if (response.ok) {
+                const services = await response.json();
+                return category ? services.filter(service => service.category === category) : services;
+            }
+        } catch (error) {
+            console.log('Loading from localStorage as fallback');
+        }
+        
+        // Fallback to localStorage
         const services = JSON.parse(localStorage.getItem(this.baseKey + 'services') || '[]');
         return category ? services.filter(service => service.category === category) : services;
     }
