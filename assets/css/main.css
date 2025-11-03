@@ -47,12 +47,12 @@
 :root {
   --font-body: 'Outfit', sans-serif;
   --font-heading: 'Marcellus', serif;
-  --color-primary: #C4EF17;
+  --color-primary: #A3968D;
   --color-heading: #131217;
   --xb-track-color: #16171B;
   --color-dark: #0F172A;
   --color-white: #fff;
-  --color-black: #000;
+  --color-black: #675c54;
   --color-default: #A8A8A8;
   --color-gray: #F8F8F8;
   --color-border: #EFF5F8;
@@ -2922,7 +2922,7 @@ body[data-aos-easing=ease] [data-aos] {
       letter-spacing: 0;
       line-height: 38.5px; } }
   .section-title .title span {
-    color: #868686; }
+    color: #A3968D; }
 .section-title--two .sub-title {
   color: #1D2026;
   letter-spacing: 0.7px;
@@ -2990,7 +2990,7 @@ body[data-aos-easing=ease] [data-aos] {
     background-color: var(--color-black);
     color: var(--color-white); }
     .section-title--border .title span span {
-      color: #868686; }
+      color: #A3968D; }
   .section-title--border .title::before {
     position: absolute;
     bottom: 8px;
@@ -3808,7 +3808,7 @@ body .mfp-wrap .mfp-container .mfp-content .mfp-close:hover::before, body .mfp-w
   .hero__contant .title span.sp-one {
     color: var(--color-primary); }
   .hero__contant .title span.sp-two {
-    color: #868686; }
+    color: #A3968D; }
 .hero__main-img {
   top: -105px;
   z-index: -1; }
@@ -3879,7 +3879,7 @@ body .mfp-wrap .mfp-container .mfp-content .mfp-close:hover::before, body .mfp-w
   .hero__content-two .xb-item--title .span--one {
     color: var(--color-primary); }
   .hero__content-two .xb-item--title .span--two {
-    color: #868686; }
+    color: #A3968D; }
 .hero__content-two .xb-item--sub_title {
   font-size: 20px;
   line-height: 32px;
@@ -4735,7 +4735,7 @@ body .mfp-wrap .mfp-container .mfp-content .mfp-close:hover::before, body .mfp-w
 .service-nav-item .sd-link {
   font-size: 24px;
   font-weight: 400;
-  color: #868686;
+  color: #A3968D;
   line-height: 32px;
   letter-spacing: -0.48px;
   font-family: var(--font-heading);
@@ -5765,7 +5765,7 @@ body .mfp-wrap .mfp-container .mfp-content .mfp-close:hover::before, body .mfp-w
 /*  13. testimonial
 /*----------------------------------------*/
 .xb-testimonial-wrapper {
-  background: #16171B;
+  background: #4d403a;
   padding: 70px 47px 109px;
   height: 100%; }
   @media (max-width: 767px) {
@@ -7631,7 +7631,7 @@ blockquote {
 .shop-single-section .thb-product-meta-after .product_meta > span a {
   font-weight: 400;
   font-size: 15px;
-  color: #868686; }
+  color: #A3968D; }
 
 .shop-single-section .product-details .product-option {
   margin-top: 40px; }
@@ -8927,7 +8927,7 @@ abbr[title] {
   .thm-btn--dark {
     color: var(--color-white); }
     .thm-btn--dark .btn-shape svg path {
-      fill: #868686; }
+      fill: #A3968D; }
     .thm-btn--dark:hover .btn-shape svg path {
       fill: var(--color-primary); }
     .thm-btn--dark:hover .icon {

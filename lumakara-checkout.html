@@ -1,0 +1,869 @@
+<!doctype html>
+<html lang="id">
+
+<head>
+    <!--========= Required meta tags =========-->
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description"
+        content="Checkout - Lumakara Digital Solutions. Selesaikan pembelian produk dan layanan digital terbaik untuk bisnis Anda.">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Checkout - Lumakara Digital Solutions</title>
+
+    <link rel="shortcut icon" href="assets/img/favicon.png" type="images/x-icon" />
+
+    <!-- css include -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/fontawesome.css">
+    <link rel="stylesheet" href="assets/css/animate.css">
+    <link rel="stylesheet" href="assets/css/swiper.min.css">
+    <link rel="stylesheet" href="assets/css/odometer.css">
+    <link rel="stylesheet" href="assets/css/imageRevealHover.css">
+    <link rel="stylesheet" href="assets/css/jquery-ui.min.css">
+    <link rel="stylesheet" href="assets/css/magnific-popup.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+
+    <!-- Midtrans Snap -->
+    <script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js"
+        data-client-key="SB-Mid-client-YOUR_CLIENT_KEY"></script>
+
+    <style>
+        .checkout-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .checkout-step {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: #007cba;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+
+        .order-summary {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            position: sticky;
+            top: 20px;
+        }
+
+        .order-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .order-item:last-child {
+            border-bottom: none;
+        }
+
+        .order-item-image {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-right: 15px;
+        }
+
+        .order-item-details {
+            flex: 1;
+        }
+
+        .order-item-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .order-item-price {
+            color: #007cba;
+            font-weight: bold;
+        }
+
+        .total-section {
+            border-top: 2px solid #007cba;
+            padding-top: 15px;
+            margin-top: 15px;
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .total-row.final {
+            font-size: 18px;
+            font-weight: bold;
+            color: #007cba;
+        }
+
+        .payment-method {
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .payment-method:hover,
+        .payment-method.selected {
+            border-color: #007cba;
+            background: #f0f8ff;
+        }
+
+        .payment-method input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        .payment-logo {
+            width: 60px;
+            height: auto;
+            margin-left: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            font-weight: bold;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .form-control:focus {
+            border-color: #007cba;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(0, 124, 186, 0.2);
+        }
+
+        .checkout-btn {
+            width: 100%;
+            padding: 15px;
+            background: #007cba;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .checkout-btn:hover {
+            background: #005a8b;
+        }
+
+        .checkout-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .security-info {
+            background: #e8f5e8;
+            border: 1px solid #4caf50;
+            border-radius: 4px;
+            padding: 10px;
+            margin-top: 15px;
+            font-size: 12px;
+        }
+
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .loading-content {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #007cba;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- backtotop - start -->
+    <div class="xb-backtotop">
+        <a href="#" class="scroll">
+            <i class="far fa-arrow-up"></i>
+        </a>
+    </div>
+    <!-- backtotop - end -->
+
+    <!-- preloader start -->
+    <div id="xb-loadding" class="xb-loadding-container">
+        <div class="xb-loader">
+            <div class="xb-loadding-inner">
+                <img src="assets/img/logo/preloader.png" alt="">
+            </div>
+        </div>
+    </div>
+    <!-- preloader end -->
+
+    <div class="body_wrap">
+
+        <!-- header start -->
+        <header id="xb-header-area" class="header-area header-style-one is-sticky">
+            <div class="xb-header">
+                <div class="container">
+                    <div class="header__wrap ul_li_between">
+                        <div class="header-logo">
+                            <a href="index.html"><img src="assets/img/logo/logo.svg" alt="Lumakara"></a>
+                        </div>
+                        <div class="main-menu__wrap ul_li navbar navbar-expand-lg">
+                            <nav class="main-menu collapse navbar-collapse">
+                                <ul>
+                                    <li><a href="index.html"><span>Home</span></a></li>
+                                    <li><a href="about.html"><span>About</span></a></li>
+                                    <li><a href="service.html"><span>Services</span></a></li>
+                                    <li><a href="project.html"><span>Portfolio</span></a></li>
+                                    <li><a href="shop.html"><span>Shop</span></a></li>
+                                    <li><a href="blog.html"><span>Blog</span></a></li>
+                                    <li><a href="contact.html"><span>Contact</span></a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- header end -->
+
+        <!-- main area start -->
+        <main>
+            <!-- breadcrumb start -->
+            <section class="breadcrumb pt-105 pb-90">
+                <div class="container">
+                    <div class="breadcrumb__content text-center">
+                        <h2 class="breadcrumb__title">Checkout</h2>
+                        <ul class="breadcrumb__list">
+                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                            <li class="breadcrumb-item"><a href="shop.html">Shop</a></li>
+                            <li class="breadcrumb-item">Checkout</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            <!-- breadcrumb end -->
+
+            <!-- checkout section start -->
+            <section class="checkout-section pt-50 pb-130">
+                <div class="container checkout-container">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <!-- Step 1: Customer Information -->
+                            <div class="checkout-step">
+                                <div class="step-header">
+                                    <div class="step-number">1</div>
+                                    <h4>Informasi Pelanggan</h4>
+                                </div>
+                                <form id="customer-form">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="firstName">Nama Depan *</label>
+                                                <input type="text" id="firstName" name="firstName" class="form-control"
+                                                    required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="lastName">Nama Belakang *</label>
+                                                <input type="text" id="lastName" name="lastName" class="form-control"
+                                                    required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="email">Email *</label>
+                                                <input type="email" id="email" name="email" class="form-control"
+                                                    required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="phone">Nomor Telepon *</label>
+                                                <input type="tel" id="phone" name="phone" class="form-control" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="company">Nama Perusahaan (Opsional)</label>
+                                        <input type="text" id="company" name="company" class="form-control">
+                                    </div>
+                                </form>
+                            </div>
+
+                            <!-- Step 2: Billing Information -->
+                            <div class="checkout-step">
+                                <div class="step-header">
+                                    <div class="step-number">2</div>
+                                    <h4>Informasi Penagihan</h4>
+                                </div>
+                                <form id="billing-form">
+                                    <div class="form-group">
+                                        <label for="address">Alamat *</label>
+                                        <input type="text" id="address" name="address" class="form-control" required>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="city">Kota *</label>
+                                                <input type="text" id="city" name="city" class="form-control" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="province">Provinsi *</label>
+                                                <select id="province" name="province" class="form-control" required>
+                                                    <option value="">Pilih Provinsi</option>
+                                                    <option value="DKI Jakarta">DKI Jakarta</option>
+                                                    <option value="Jawa Barat">Jawa Barat</option>
+                                                    <option value="Jawa Tengah">Jawa Tengah</option>
+                                                    <option value="Jawa Timur">Jawa Timur</option>
+                                                    <option value="Banten">Banten</option>
+                                                    <option value="Yogyakarta">Yogyakarta</option>
+                                                    <!-- Add more provinces as needed -->
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="postalCode">Kode Pos *</label>
+                                        <input type="text" id="postalCode" name="postalCode" class="form-control"
+                                            required>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <!-- Step 3: Payment Method -->
+                            <div class="checkout-step">
+                                <div class="step-header">
+                                    <div class="step-number">3</div>
+                                    <h4>Metode Pembayaran</h4>
+                                </div>
+                                <div id="payment-methods">
+                                    <div class="payment-method" data-method="bank_transfer">
+                                        <input type="radio" name="payment_method" value="bank_transfer"
+                                            id="bank_transfer">
+                                        <label for="bank_transfer">
+                                            <strong>Transfer Bank</strong>
+                                            <br><small>BCA, Mandiri, BNI, BRI</small>
+                                        </label>
+                                    </div>
+
+                                    <div class="payment-method" data-method="credit_card">
+                                        <input type="radio" name="payment_method" value="credit_card" id="credit_card">
+                                        <label for="credit_card">
+                                            <strong>Kartu Kredit/Debit</strong>
+                                            <br><small>Visa, Mastercard, JCB</small>
+                                        </label>
+                                    </div>
+
+                                    <div class="payment-method" data-method="e_wallet">
+                                        <input type="radio" name="payment_method" value="e_wallet" id="e_wallet">
+                                        <label for="e_wallet">
+                                            <strong>E-Wallet</strong>
+                                            <br><small>GoPay, OVO, DANA, LinkAja</small>
+                                        </label>
+                                    </div>
+
+                                    <div class="payment-method" data-method="qris">
+                                        <input type="radio" name="payment_method" value="qris" id="qris">
+                                        <label for="qris">
+                                            <strong>QRIS</strong>
+                                            <br><small>Scan QR Code untuk pembayaran</small>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="security-info">
+                                    <i class="fas fa-shield-alt"></i>
+                                    Pembayaran Anda dilindungi dengan enkripsi SSL 256-bit dan diproses melalui gateway
+                                    pembayaran yang aman.
+                                </div>
+                            </div>
+
+                            <!-- Order Notes -->
+                            <div class="checkout-step">
+                                <div class="step-header">
+                                    <div class="step-number">4</div>
+                                    <h4>Catatan Pesanan (Opsional)</h4>
+                                </div>
+                                <div class="form-group">
+                                    <label for="orderNotes">Catatan untuk pesanan Anda</label>
+                                    <textarea id="orderNotes" name="orderNotes" class="form-control" rows="4"
+                                        placeholder="Catatan khusus tentang pesanan Anda, seperti preferensi waktu konsultasi, detail khusus yang ingin disampaikan, dll."></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Order Summary -->
+                        <div class="col-lg-4">
+                            <div class="order-summary">
+                                <h4 class="mb-3">Ringkasan Pesanan</h4>
+
+                                <div id="order-items">
+                                    <!-- Order items will be loaded here by JavaScript -->
+                                </div>
+
+                                <div class="total-section">
+                                    <div class="total-row">
+                                        <span>Subtotal:</span>
+                                        <span id="subtotal">Rp 0</span>
+                                    </div>
+                                    <div class="total-row">
+                                        <span>PPN (11%):</span>
+                                        <span id="tax">Rp 0</span>
+                                    </div>
+                                    <div class="total-row">
+                                        <span>Diskon:</span>
+                                        <span id="discount">Rp 0</span>
+                                    </div>
+                                    <div class="total-row final">
+                                        <span>Total:</span>
+                                        <span id="total">Rp 0</span>
+                                    </div>
+                                </div>
+
+                                <button type="button" id="place-order-btn" class="checkout-btn mt-3">
+                                    <i class="fas fa-lock"></i> Bayar Sekarang
+                                </button>
+
+                                <div class="mt-3 text-center">
+                                    <small class="text-muted">
+                                        Dengan melanjutkan, Anda menyetujui <a href="#" target="_blank">Syarat &
+                                            Ketentuan</a> dan <a href="#" target="_blank">Kebijakan Privasi</a> kami.
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- checkout section end -->
+        </main>
+        <!-- main area end -->
+
+        <!-- footer start -->
+        <footer class="footer pt-120">
+            <div class="container">
+                <div class="footer__content">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-6">
+                            <div class="footer__widget">
+                                <div class="footer__logo">
+                                    <a href="index.html"><img src="assets/img/logo/logo.svg" alt="Lumakara"></a>
+                                </div>
+                                <p>Transformation partner yang membantu bisnis tumbuh dengan clarity dan purpose.</p>
+                                <ul class="footer__social">
+                                    <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-linkedin"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-6">
+                            <div class="footer__widget">
+                                <h4 class="footer__widget-title">Services</h4>
+                                <ul class="footer__links">
+                                    <li><a href="service.html">Digital Marketing</a></li>
+                                    <li><a href="service.html">Web Development</a></li>
+                                    <li><a href="service.html">Business Automation</a></li>
+                                    <li><a href="service.html">Brand Identity</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6">
+                            <div class="footer__widget">
+                                <h4 class="footer__widget-title">Contact Info</h4>
+                                <ul class="footer__contact">
+                                    <li><i class="fas fa-envelope"></i> hello@lumakara.com</li>
+                                    <li><i class="fas fa-phone"></i> +62 812-3456-7890</li>
+                                    <li><i class="fas fa-map-marker-alt"></i> Bandung, Indonesia</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6">
+                            <div class="footer__widget">
+                                <h4 class="footer__widget-title">Newsletter</h4>
+                                <p>Subscribe untuk mendapatkan update terbaru dari Lumakara.</p>
+                                <form class="footer__newsletter">
+                                    <input type="email" placeholder="Your email address">
+                                    <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer__bottom">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="footer__bottom-content text-center">
+                                <p>&copy; 2024 Lumakara. All rights reserved.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- footer end -->
+
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loading-overlay">
+        <div class="loading-content">
+            <div class="spinner"></div>
+            <p>Memproses pembayaran Anda...</p>
+            <small>Mohon tunggu, jangan tutup halaman ini.</small>
+        </div>
+    </div>
+
+    <!-- js include -->
+    <script src="assets/js/jquery-3.7.1.min.js"></script>
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/swiper.min.js"></script>
+    <script src="assets/js/jquery.magnific-popup.min.js"></script>
+    <script src="assets/js/jquery.odometer.min.js"></script>
+    <script src="assets/js/jquery.appear.js"></script>
+    <script src="assets/js/gsap.min.js"></script>
+    <script src="assets/js/ScrollTrigger.min.js"></script>
+    <script src="assets/js/SplitText.min.js"></script>
+    <script src="assets/js/TweenMax.min.js"></script>
+    <script src="assets/js/jquery.marquee.min.js"></script>
+    <script src="assets/js/main.js"></script>
+
+    <!-- Lumakara Scripts -->
+    <script src="cms/api.js"></script>
+    <script src="js/lumakara-ecommerce.js"></script>
+
+    <script>
+        // Lumakara Checkout System
+        class LumakaraCheckout {
+            constructor() {
+                this.cart = JSON.parse(localStorage.getItem('lumakara_cart') || '[]');
+                this.orderData = {};
+                this.init();
+            }
+
+            init() {
+                this.loadOrderSummary();
+                this.setupEventListeners();
+                this.setupPaymentMethods();
+
+                // Redirect if cart is empty
+                if (this.cart.length === 0) {
+                    alert('Keranjang belanja kosong. Anda akan diarahkan ke halaman shop.');
+                    window.location.href = 'shop.html';
+                    return;
+                }
+            }
+
+            loadOrderSummary() {
+                const orderItemsContainer = document.getElementById('order-items');
+                let itemsHTML = '';
+                let subtotal = 0;
+
+                this.cart.forEach(item => {
+                    const itemTotal = item.price * item.quantity;
+                    subtotal += itemTotal;
+
+                    itemsHTML += `
+                <div class="order-item">
+                    <img src="${item.image}" alt="${item.name}" class="order-item-image">
+                    <div class="order-item-details">
+                        <div class="order-item-title">${item.name}</div>
+                        <div class="order-item-quantity">Qty: ${item.quantity}</div>
+                        <div class="order-item-price">Rp ${this.formatPrice(itemTotal)}</div>
+                    </div>
+                </div>
+            `;
+                });
+
+                orderItemsContainer.innerHTML = itemsHTML;
+
+                // Calculate totals
+                const tax = Math.round(subtotal * 0.11); // 11% PPN
+                const discount = 0; // You can implement discount logic here
+                const total = subtotal + tax - discount;
+
+                document.getElementById('subtotal').textContent = `Rp ${this.formatPrice(subtotal)}`;
+                document.getElementById('tax').textContent = `Rp ${this.formatPrice(tax)}`;
+                document.getElementById('discount').textContent = `Rp ${this.formatPrice(discount)}`;
+                document.getElementById('total').textContent = `Rp ${this.formatPrice(total)}`;
+
+                this.orderData.subtotal = subtotal;
+                this.orderData.tax = tax;
+                this.orderData.discount = discount;
+                this.orderData.total = total;
+            }
+
+            setupEventListeners() {
+                // Place order button
+                document.getElementById('place-order-btn').addEventListener('click', () => {
+                    this.processOrder();
+                });
+
+                // Form validation
+                const forms = ['customer-form', 'billing-form'];
+                forms.forEach(formId => {
+                    const form = document.getElementById(formId);
+                    if (form) {
+                        form.addEventListener('input', () => {
+                            this.validateForms();
+                        });
+                    }
+                });
+            }
+
+            setupPaymentMethods() {
+                const paymentMethods = document.querySelectorAll('.payment-method');
+                paymentMethods.forEach(method => {
+                    method.addEventListener('click', () => {
+                        // Remove selected class from all methods
+                        paymentMethods.forEach(m => m.classList.remove('selected'));
+
+                        // Add selected class to clicked method
+                        method.classList.add('selected');
+
+                        // Check the radio button
+                        const radio = method.querySelector('input[type="radio"]');
+                        if (radio) {
+                            radio.checked = true;
+                        }
+                    });
+                });
+            }
+
+            validateForms() {
+                const customerForm = document.getElementById('customer-form');
+                const billingForm = document.getElementById('billing-form');
+                const paymentMethod = document.querySelector('input[name="payment_method"]:checked');
+
+                let isValid = true;
+
+                // Validate customer form
+                const customerInputs = customerForm.querySelectorAll('input[required]');
+                customerInputs.forEach(input => {
+                    if (!input.value.trim()) {
+                        isValid = false;
+                    }
+                });
+
+                // Validate billing form
+                const billingInputs = billingForm.querySelectorAll('input[required], select[required]');
+                billingInputs.forEach(input => {
+                    if (!input.value.trim()) {
+                        isValid = false;
+                    }
+                });
+
+                // Validate payment method
+                if (!paymentMethod) {
+                    isValid = false;
+                }
+
+                // Update button state
+                const placeOrderBtn = document.getElementById('place-order-btn');
+                placeOrderBtn.disabled = !isValid;
+
+                return isValid;
+            }
+
+            collectFormData() {
+                const customerForm = document.getElementById('customer-form');
+                const billingForm = document.getElementById('billing-form');
+                const paymentMethod = document.querySelector('input[name="payment_method"]:checked');
+                const orderNotes = document.getElementById('orderNotes').value;
+
+                const customerData = new FormData(customerForm);
+                const billingData = new FormData(billingForm);
+
+                const orderData = {
+                    customer: Object.fromEntries(customerData),
+                    billing: Object.fromEntries(billingData),
+                    payment_method: paymentMethod ? paymentMethod.value : null,
+                    order_notes: orderNotes,
+                    items: this.cart,
+                    subtotal: this.orderData.subtotal,
+                    tax: this.orderData.tax,
+                    discount: this.orderData.discount,
+                    total: this.orderData.total,
+                    order_id: 'LMK-' + Date.now(),
+                    created_at: new Date().toISOString()
+                };
+
+                return orderData;
+            }
+
+            async processOrder() {
+                if (!this.validateForms()) {
+                    alert('Mohon lengkapi semua field yang diperlukan.');
+                    return;
+                }
+
+                const orderData = this.collectFormData();
+
+                // Show loading
+                document.getElementById('loading-overlay').style.display = 'flex';
+
+                try {
+                    // Create Midtrans transaction
+                    const transactionData = {
+                        transaction_details: {
+                            order_id: orderData.order_id,
+                            gross_amount: orderData.total
+                        },
+                        customer_details: {
+                            first_name: orderData.customer.firstName,
+                            last_name: orderData.customer.lastName,
+                            email: orderData.customer.email,
+                            phone: orderData.customer.phone,
+                            billing_address: {
+                                address: orderData.billing.address,
+                                city: orderData.billing.city,
+                                postal_code: orderData.billing.postalCode,
+                                country_code: 'IDN'
+                            }
+                        },
+                        item_details: orderData.items.map(item => ({
+                            id: item.id,
+                            price: item.price,
+                            quantity: item.quantity,
+                            name: item.name
+                        })),
+                        enabled_payments: this.getEnabledPayments(orderData.payment_method)
+                    };
+
+                    // In real implementation, send this to your backend
+                    // For demo, we'll simulate the payment process
+                    await this.simulatePaymentProcess(transactionData, orderData);
+
+                } catch (error) {
+                    console.error('Order processing error:', error);
+                    alert('Terjadi kesalahan dalam memproses pesanan. Silakan coba lagi.');
+                } finally {
+                    document.getElementById('loading-overlay').style.display = 'none';
+                }
+            }
+
+            getEnabledPayments(paymentMethod) {
+                const paymentMethods = {
+                    'bank_transfer': ['bank_transfer'],
+                    'credit_card': ['credit_card'],
+                    'e_wallet': ['gopay', 'shopeepay'],
+                    'qris': ['qris']
+                };
+
+                return paymentMethods[paymentMethod] || ['bank_transfer', 'credit_card'];
+            }
+
+            async simulatePaymentProcess(transactionData, orderData) {
+                // Simulate API call delay
+                await new Promise(resolve => setTimeout(resolve, 2000));
+
+                // Simulate Midtrans Snap token response
+                const snapToken = 'demo_snap_token_' + Date.now();
+
+                // In real implementation, you would get this from your backend
+                // const response = await fetch('/api/create-transaction', {
+                //     method: 'POST',
+                //     headers: { 'Content-Type': 'application/json' },
+                //     body: JSON.stringify(transactionData)
+                // });
+                // const { snap_token } = await response.json();
+
+                // For demo, redirect to success page
+                this.saveOrder(orderData);
+                window.location.href = `order-success.html?order_id=${orderData.order_id}`;
+            }
+
+            saveOrder(orderData) {
+                // Save order to localStorage (in real app, this would be saved to database)
+                const orders = JSON.parse(localStorage.getItem('lumakara_orders') || '[]');
+                orders.push(orderData);
+                localStorage.setItem('lumakara_orders', JSON.stringify(orders));
+
+                // Clear cart
+                localStorage.removeItem('lumakara_cart');
+            }
+
+            formatPrice(price) {
+                return new Intl.NumberFormat('id-ID').format(price);
+            }
+        }
+
+        // Initialize checkout when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            new LumakaraCheckout();
+        });
+    </script>
+
+</body>
+
+</html>
