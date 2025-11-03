@@ -105,6 +105,46 @@ class LumakaraCMS {
             }
         }, 5000);
     }
+    
+    generateBlogHTML(post) {
+        const date = new Date(post.date).toLocaleDateString('id-ID', { 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric' 
+        });
+        
+        return `
+    <div class="xb-blog xb-hover-zoom pos-rel ul_li">
+        <div class="xb-item--img">
+            <img src="${post.image || 'assets/img/blog/blog_01.png'}" alt="${post.title}">
+        </div>
+        <div class="xb-item--inner ul_li">
+            <div class="xb-item--author">
+                <div class="xb-item--avatar">
+                    <img src="assets/img/blog/blog-icon_01.jpg" alt="">
+                </div>
+                <h3 class="xb-item--name"><span>By</span>: ${post.author}</h3>
+                <h5 class="xb-item--date">${date}</h5>
+            </div>
+            <div class="xb-item--holder">
+                <h2 class="xb-item--title">${post.title}</h2>
+                <p class="xb-item--content">${this.truncateText(this.stripHTML(post.content), 100)}</p>
+            </div>
+        </div>
+        <a class="xb-overlay" href="blog-single.html?slug=${post.slug}"></a>
+    </div>`;
+    }
+    
+    truncateText(text, length) {
+        if (text.length <= length) return text;
+        return text.substr(0, length) + '...';
+    }
+    
+    stripHTML(html) {
+        const tmp = document.createElement('div');
+        tmp.innerHTML = html;
+        return tmp.textContent || tmp.innerText || '';
+    }
 
     initializeDefaultData() {
         // Initialize with Lumakara default data if empty
@@ -279,7 +319,10 @@ class LumakaraCMS {
         if (success) {
             this.loadBlogList();
             this.hideBlogForm();
-            this.updateWebsiteFiles();
+            
+            // Show HTML code for manual copy-paste
+            const htmlCode = this.generateBlogHTML(formData);
+            this.showHTMLCode('Blog HTML Code', htmlCode, 'Copy this HTML code and paste it into your index.html blog section');
         }
     }
 
@@ -427,6 +470,42 @@ class LumakaraCMS {
         if (previewFrame) {
             previewFrame.src = previewFrame.src;
         }
+    }
+    
+    showHTMLCode(title, htmlCode, instruction) {
+        // Create modal for HTML code
+        const modal = document.createElement('div');
+        modal.className = 'modal fade show';
+        modal.style.cssText = 'display: block; background: rgba(0,0,0,0.5);';
+        modal.innerHTML = `
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">${title}</h5>
+                        <button type="button" class="btn-close" onclick="this.closest('.modal').remove()"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="text-muted">${instruction}</p>
+                        <div class="mb-3">
+                            <label class="form-label">HTML Code:</label>
+                            <textarea class="form-control" rows="15" readonly id="htmlCodeArea">${htmlCode}</textarea>
+                        </div>
+                        <button class="btn btn-primary" onclick="navigator.clipboard.writeText(document.getElementById('htmlCodeArea').value); alert('HTML code copied to clipboard!')">
+                            <i class="fas fa-copy"></i> Copy to Clipboard
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        document.body.appendChild(modal);
+        
+        // Auto remove after 30 seconds
+        setTimeout(() => {
+            if (modal.parentNode) {
+                modal.parentNode.removeChild(modal);
+            }
+        }, 30000);
     }
 
     // Export data for backup
