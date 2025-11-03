@@ -47,61 +47,134 @@
 
 <div class="body_wrap">
 
-    <!-- header start -->
-    <header id="xb-header-area" class="header-area header-style-two is-sticky">
-        <div class="xb-header__top">
-            <div class="container mxw_1660">
-                <ul class="top-list ul_li_between">
-                    <li><span id="xb-date"></span></li>
-                    <li> <span id="xb-time"></span></li>
-                    <li>Bali,Indonesia</li>
-                </ul>
-            </div>
-        </div>
-        <div class="xb-header__bottom xb-header">
-            <div class="container mxw_1660">
-                <div class="ul_li_between">
-                    <div class="header-logo">
-                        <a href="index.html">
-                            <img src="assets/img/logo/logo.svg" alt="">
-                        </a>
-                    </div>
-                    <ul class="xb-header__midle">
-                        <li><a href="career.html">FIND DEVS</a></li>
-                        <li><a href="career.html">FIND WORK</a></li>
-                    </ul>
-                    <div class="ul_li">
-                        <div class="xb-header__btn ul_li">
-                            <a href="#" class="thm-btn thm-btn--stroke ul_li"><img src="assets/img/icon/user.svg" alt=""><span class="btn-shape">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="146" height="53" viewBox="0 0 146 53" fill="none" preserveAspectRatio="none">
-                                <path fill-rule="evenodd" clip-rule="evenodd" d="M9.45462 0.5H137.3C140.06 0.5 142.392 2.54539 142.753 5.28164L144.962 22.0517C145.316 24.7429 145.322 27.4686 144.977 30.1611L142.735 47.6976C142.384 50.4431 140.047 52.5 137.279 52.5H9.47938C6.78281 52.5 4.48393 50.545 4.0508 47.8834L1.34263 31.242C0.789145 27.8408 0.797471 24.3719 1.36728 20.9735L4.03034 5.09052C4.47459 2.44092 6.76803 0.5 9.45462 0.5Z" stroke="#A3968D"/>
-                              </svg></span> login <span></span></a>
-
-                            <a href="contact.html" class="thm-btn thm-btn--anim">
-                                <span class="btn-shape"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 168 53" fill="none" preserveAspectRatio="none">
-                                    <path d="M4.0981 4.86337C4.64282 2.03999 7.11401 0 9.98946 0H158.884C161.85 0 164.371 2.1678 164.816 5.10073L167.284 21.379C167.759 24.5119 167.766 27.6981 167.304 30.8331L164.797 47.8734C164.364 50.818 161.837 53 158.861 53H10.0172C7.12933 53 4.65118 50.9428 4.11965 48.1044L1.11963 32.0835C0.379833 28.1329 0.390937 24.0782 1.15236 20.1316L4.0981 4.86337Z" fill="#A3968D"/>
-                                  </svg>
-                                </span>
-                                <div class="btn-anim-wrap">
-                                    <span class="button-text">try it for free+</span>
-                                    <span class="button-text">try it for free+</span>
+        <!-- header start -->
+        <header id="xb-header-area" class="header-area header-style-one is-sticky">
+            <div class="xb-header">
+                <div class="container">
+                    <div class="header__wrap ul_li_between">
+                        <div class="header-logo">
+                            <a href="index.html"><img src="assets/img/logo/logo.svg" alt=""></a>
+                        </div>
+                        <div class="main-menu__wrap ul_li navbar navbar-expand-lg">
+                            <nav class="main-menu collapse navbar-collapse">
+                                <ul>
+                                    <li class="active">
+                                        <a href="index.html"><span>Home</span></a>
+                                    </li>
+                                    <li>
+                                        <a href="about.html"><span>About</span></a>
+                                    </li>
+                                    <li>
+                                        <a href="service.html"><span>Services</span></a>
+                                    </li>
+                                    <li>
+                                        <a href="project.html"><span>Portfolio</span></a>
+                                    </li>
+                                    <li>
+                                        <a href="shop.html"><span>Product</span></a>
+                                    </li>
+                                    <li>
+                                        <a href="blog.html"><span>Blog</span></a>
+                                    </li>
+                                    <li>
+                                        <a href="career.html"><span>Career</span></a>
+                                    </li>
+                                    <li>
+                                        <a href="contact.html"><span>Let's Talk</span></a>
+                                    </li>
+                                </ul>
+                            </nav>
+                            <div class="xb-header-wrap">
+                                <div class="xb-header-menu">
+                                    <div class="xb-header-menu-scroll">
+                                        <div class="xb-menu-close xb-hide-xl xb-close"></div>
+                                        <div class="xb-logo-mobile xb-hide-xl">
+                                            <a href="index.html" rel="home"><img src="assets/img/logo/logo.svg"
+                                                    alt=""></a>
+                                        </div>
+                                        <div class="xb-header-mobile-search xb-hide-xl">
+                                            <form role="search" action="#">
+                                                <input type="text" placeholder="Search..." name="s"
+                                                    class="search-field">
+                                            </form>
+                                        </div>
+                                        <nav class="xb-header-nav">
+                                            <ul class="xb-menu-primary clearfix">
+                                                <li class="menu-item menu-item-has-children">
+                                                    <a href="#"><span>Home</span></a>
+                                                    <ul class="sub-menu">
+                                                        <li class="active"><a href="index.html"><span>Web Design
+                                                                    Agency</span></a></li>
+                                                        <li><a href="home-2.html"><span>Find Developers</span></a></li>
+                                                        <li><a href="home-3.html"><span>Personal Portfolio</span></a>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li class="menu-item menu-item-has-children">
+                                                    <a href="#"><span>Pages</span></a>
+                                                    <ul class="sub-menu">
+                                                        <li><a href="about.html"><span>About</span></a></li>
+                                                        <li><a href="service.html"><span>Services</span></a></li>
+                                                        <li><a href="service-single.html"><span>Service
+                                                                    Details</span></a></li>
+                                                        <li><a href="team.html"><span>Team</span></a></li>
+                                                        <li><a href="team-single.html"><span>Team Details</span></a>
+                                                        </li>
+                                                        <li><a href="career.html"><span>Career</span></a></li>
+                                                        <li><a href="career-single.html"><span>Career Details</span></a>
+                                                        </li>
+                                                        <li><a href="faq.html"><span>FAQ</span></a></li>
+                                                    </ul>
+                                                </li>
+                                                <li class="menu-item menu-item-has-children">
+                                                    <a href="portfolio.html"><span>Portfolio</span></a>
+                                                    <ul class="sub-menu">
+                                                        <li><a href="project.html"><span>Portfolio</span></a></li>
+                                                        <li><a href="project-single.html"><span>Portfolio
+                                                                    Details</span></a></li>
+                                                    </ul>
+                                                </li>
+                                                <li class="menu-item menu-item-has-children">
+                                                    <a href="shop.html"><span>Shop</span></a>
+                                                    <ul class="sub-menu">
+                                                        <li><a href="shop.html"><span>Products</span></a></li>
+                                                        <li><a href="shop-single.html"><span>Single Product</span></a>
+                                                        </li>
+                                                        <li><a href="cart.html"><span>Cart</span></a></li>
+                                                        <li><a href="checkout.html"><span>Checkout</span></a></li>
+                                                    </ul>
+                                                </li>
+                                                <li class="menu-item menu-item-has-children">
+                                                    <a href="blog.html"><span>News</span></a>
+                                                    <ul class="sub-menu">
+                                                        <li><a href="blog.html"><span>News</span></a></li>
+                                                        <li><a href="blog-single.html"><span>News Details</span></a>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li class="menu-item"><a href="contact.html"><span>Contact</span></a>
+                                                </li>
+                                            </ul>
+                                        </nav>
+                                    </div>
                                 </div>
+                                <div class="xb-header-menu-backdrop"></div>
+                            </div>
+                        </div>
+                        <div class="side-menu d-none d-lg-block">
+                            <a class="burger-menu" href="javascript:void(0);">
+                                <img src="assets/img/icon/category.svg" alt="">
                             </a>
                         </div>
-                        <div class="side-menu">
-                            <a class="burger-menu" href="javascript:void(0);">
-                                <img src="assets/img/icon/category.svg" alt=""><span>Menu</span>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="47" height="53" viewBox="0 0 47 53" fill="none">
-                                    <path d="M21.5 1.1547C22.7376 0.440169 24.2624 0.440169 25.5 1.1547L44.4497 12.0953C45.6873 12.8098 46.4497 14.1303 46.4497 15.5594V37.4406C46.4497 38.8697 45.6873 40.1902 44.4497 40.9047L25.5 51.8453C24.2624 52.5598 22.7376 52.5598 21.5 51.8453L2.55033 40.9047C1.31272 40.1902 0.550327 38.8697 0.550327 37.4406V15.5594C0.550327 14.1303 1.31272 12.8098 2.55033 12.0953L21.5 1.1547Z" fill="#A3968D"/>
-                                  </svg>
-                            </a>
+                        <div class="header-bar-mobile side-menu d-lg-none">
+                            <a class="xb-nav-mobile" href="javascript:void(0);"><img src="assets/img/icon/category.svg"
+                                    alt=""></a>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </header>
-    <!-- header end -->
+        </header>
+        <!-- header end -->
 
     <!-- overlay menu start -->
     <div class="overlay-menu overlay-menu-two">
