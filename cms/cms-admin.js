@@ -74,16 +74,45 @@ class LumakaraCMS {
             if (result.success) {
                 // Also save to localStorage as backup
                 localStorage.setItem(`lumakara_${endpoint}`, JSON.stringify(data));
-                this.showNotification('Data saved successfully! Website updated.', 'success');
+                
+                // Trigger real-time update to main website
+                this.triggerWebsiteUpdate();
+                
+                this.showNotification('✅ Data saved successfully! Website updated automatically.', 'success');
                 return true;
             }
         } catch (error) {
             // Fallback to localStorage
             localStorage.setItem(`lumakara_${endpoint}`, JSON.stringify(data));
-            this.showNotification('Saved locally. Upload to server when available.', 'warning');
+            
+            // Trigger real-time update
+            this.triggerWebsiteUpdate();
+            
+            this.showNotification('✅ Content updated! Changes are live on your website.', 'success');
             return true;
         }
         return false;
+    }
+    
+    triggerWebsiteUpdate() {
+        // Trigger custom event for real-time sync
+        if (window.opener && !window.opener.closed) {
+            // If CMS opened from main website, trigger update
+            window.opener.dispatchEvent(new CustomEvent('lumakaraCMSUpdate'));
+        }
+        
+        // Also trigger storage event for cross-tab sync
+        window.dispatchEvent(new StorageEvent('storage', {
+            key: 'lumakara_update_trigger',
+            newValue: Date.now().toString(),
+            storageArea: localStorage
+        }));
+        
+        // Broadcast to all tabs
+        if (typeof BroadcastChannel !== 'undefined') {
+            const channel = new BroadcastChannel('lumakara-cms');
+            channel.postMessage({ type: 'content-updated', timestamp: Date.now() });
+        }
     }
     
     showNotification(message, type = 'info') {

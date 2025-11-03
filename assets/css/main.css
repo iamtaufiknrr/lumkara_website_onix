@@ -8992,7 +8992,7 @@ abbr[title] {
 .circle-btn .button__bg::before, .circle-btn .button__bg::after {
   content: '';
   position: absolute;
-  background: #CEFF0A; }
+  background: #675c54; }
 
 .circle-btn .button__bg::before {
   width: 110%;

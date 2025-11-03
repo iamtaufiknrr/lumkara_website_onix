@@ -12,6 +12,29 @@ class LumakaraDynamic {
         this.loadAPI().then(() => {
             this.loadDynamicContent();
         });
+        
+        // Setup real-time sync with CMS
+        this.setupRealTimeSync();
+    }
+    
+    setupRealTimeSync() {
+        // BroadcastChannel for cross-tab communication
+        if (typeof BroadcastChannel !== 'undefined') {
+            const channel = new BroadcastChannel('lumakara-cms');
+            channel.addEventListener('message', (event) => {
+                if (event.data.type === 'content-updated') {
+                    console.log('🔄 Real-time update from CMS detected');
+                    setTimeout(() => {
+                        this.loadDynamicContent();
+                    }, 500); // Small delay to ensure data is saved
+                }
+            });
+        }
+        
+        // Periodic refresh every 30 seconds (fallback)
+        setInterval(() => {
+            this.loadDynamicContent();
+        }, 30000);
     }
 
     async loadAPI() {
@@ -67,42 +90,80 @@ class LumakaraDynamic {
     }
 
     async loadLatestBlogPosts() {
-        const blogContainer = document.querySelector('#latest-blog-posts');
+        const blogContainer = document.querySelector('#lumakara-blog-container');
         if (!blogContainer) return;
 
-        const posts = await this.api.getBlogPosts(3); // Get latest 3 posts
-        
-        let blogHTML = '';
-        posts.forEach(post => {
-            blogHTML += `
-                <div class="col-lg-4 col-md-6 mt-30">
-                    <div class="xb-blog xb-hover-zoom pos-rel ul_li">
-                        <div class="xb-item--img">
-                            <img src="${post.image || 'assets/img/blog/default-blog.jpg'}" alt="${post.title}">
-                        </div>
-                        <div class="xb-item--inner ul_li">
-                            <div class="xb-item--author">
-                                <div class="xb-item--avatar">
-                                    <img src="assets/img/team/lumakara-team.jpg" alt="">
-                                </div>
-                                <h3 class="xb-item--name"><span>By</span>: ${post.author}</h3>
-                                <h5 class="xb-item--date">${this.formatDate(post.date)}</h5>
-                            </div>
-                            <div class="xb-item--holder">
-                                <h2 class="xb-item--title">${post.title}</h2>
-                                <p class="xb-item--content">${this.truncateText(this.stripHTML(post.content), 120)}</p>
-                                <div class="xb-item--tags">
-                                    ${post.tags.map(tag => `<span class="tag">#${tag}</span>`).join('')}
-                                </div>
-                            </div>
-                        </div>
-                        <a class="xb-overlay" href="blog-single.html?slug=${post.slug}"></a>
-                    </div>
-                </div>
-            `;
-        });
-
-        blogContainer.innerHTML = blogHTML;
+        try {
+            const posts = await this.api.getBlogPosts(3); // Get latest 3 posts
+            
+            if (posts && posts.length > 0) {
+                // Update existing blog items with dynamic content
+                const blogItems = blogContainer.querySelectorAll('[data-blog-item]');
+                
+                posts.forEach((post, index) => {
+                    if (blogItems[index]) {
+                        const blogItem = blogItems[index];
+                        
+                        // Update image
+                        const img = blogItem.querySelector('.xb-item--img img');
+                        if (img && post.image) {
+                            img.src = post.image;
+                            img.alt = post.title;
+                        }
+                        
+                        // Update author
+                        const authorName = blogItem.querySelector('.author-name');
+                        if (authorName) authorName.textContent = post.author;
+                        
+                        // Update date
+                        const dateElement = blogItem.querySelector('.blog-date');
+                        if (dateElement) dateElement.textContent = this.formatDate(post.date);
+                        
+                        // Update title
+                        const titleElement = blogItem.querySelector('.blog-title');
+                        if (titleElement) titleElement.innerHTML = this.formatTitle(post.title);
+                        
+                        // Update excerpt
+                        const excerptElement = blogItem.querySelector('.blog-excerpt');
+                        if (excerptElement) {
+                            excerptElement.innerHTML = this.formatExcerpt(this.stripHTML(post.content));
+                        }
+                        
+                        // Update link
+                        const linkElement = blogItem.querySelector('.blog-link');
+                        if (linkElement) linkElement.href = `blog-single.html?slug=${post.slug}`;
+                    }
+                });
+                
+                console.log('✅ Blog posts loaded successfully from CMS');
+                this.showUpdateIndicator('Blog content updated from CMS');
+            } else {
+                console.log('📝 Using default blog content');
+            }
+        } catch (error) {
+            console.log('📝 Using default blog content (CMS data not available)');
+        }
+    }
+    
+    formatTitle(title) {
+        // Add line breaks for better layout (similar to original)
+        if (title.length > 40) {
+            const words = title.split(' ');
+            const midPoint = Math.ceil(words.length / 2);
+            return words.slice(0, midPoint).join(' ') + ' <br> ' + words.slice(midPoint).join(' ');
+        }
+        return title;
+    }
+    
+    formatExcerpt(content) {
+        const excerpt = this.truncateText(content, 100);
+        // Add line break for better layout
+        if (excerpt.length > 50) {
+            const words = excerpt.split(' ');
+            const midPoint = Math.ceil(words.length / 2);
+            return words.slice(0, midPoint).join(' ') + ' <br> ' + words.slice(midPoint).join(' ');
+        }
+        return excerpt;
     }
 
     async loadFeaturedServices() {
@@ -498,18 +559,94 @@ class LumakaraDynamic {
         tmp.innerHTML = html;
         return tmp.textContent || tmp.innerText || '';
     }
+    
+    showUpdateIndicator(message) {
+        // Show subtle update indicator
+        const indicator = document.createElement('div');
+        indicator.className = 'lumakara-update-indicator';
+        indicator.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #A3968D;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 14px;
+            z-index: 9999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        `;
+        indicator.innerHTML = `
+            <i class="fas fa-sync-alt fa-spin"></i> ${message}
+        `;
+        
+        document.body.appendChild(indicator);
+        
+        // Fade in
+        setTimeout(() => {
+            indicator.style.opacity = '1';
+        }, 100);
+        
+        // Fade out and remove
+        setTimeout(() => {
+            indicator.style.opacity = '0';
+            setTimeout(() => {
+                if (indicator.parentNode) {
+                    indicator.parentNode.removeChild(indicator);
+                }
+            }, 300);
+        }, 3000);
+    }
 }
 
 // Initialize dynamic content when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-    new LumakaraDynamic();
+    const dynamicLoader = new LumakaraDynamic();
+    
+    // Listen for CMS updates (real-time sync)
+    window.addEventListener('storage', (e) => {
+        if (e.key && e.key.startsWith('lumakara_')) {
+            console.log('🔄 CMS data updated, refreshing content...');
+            dynamicLoader.loadDynamicContent();
+        }
+    });
+    
+    // Listen for custom CMS update events
+    window.addEventListener('lumakaraCMSUpdate', (e) => {
+        console.log('🔄 CMS update detected, refreshing content...');
+        dynamicLoader.loadDynamicContent();
+    });
 });
 
 // Also initialize if DOM is already loaded
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
-        new LumakaraDynamic();
+        const dynamicLoader = new LumakaraDynamic();
+        
+        // Real-time sync listeners
+        window.addEventListener('storage', (e) => {
+            if (e.key && e.key.startsWith('lumakara_')) {
+                dynamicLoader.loadDynamicContent();
+            }
+        });
+        
+        window.addEventListener('lumakaraCMSUpdate', () => {
+            dynamicLoader.loadDynamicContent();
+        });
     });
 } else {
-    new LumakaraDynamic();
+    const dynamicLoader = new LumakaraDynamic();
+    
+    // Real-time sync listeners
+    window.addEventListener('storage', (e) => {
+        if (e.key && e.key.startsWith('lumakara_')) {
+            dynamicLoader.loadDynamicContent();
+        }
+    });
+    
+    window.addEventListener('lumakaraCMSUpdate', () => {
+        dynamicLoader.loadDynamicContent();
+    });
 }
