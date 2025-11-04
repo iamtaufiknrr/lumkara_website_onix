@@ -53,8 +53,8 @@
   --xb-track-color: #1B4638;
   --color-dark: #0F172A;
   --color-white: #fff;
-  --color-black: #1B4638;
-  --color-default: #A8A8A8;
+  --color-black: #675c54;
+  --color-default: #030202;
   --color-gray: #F8F8F8;
   --color-border: #EFF5F8;
   --easing: cubic-bezier(0.67, 0.04, 0.3, 0.91);
@@ -75,30 +75,76 @@ html {
 }
 
 /* Preserve Font Awesome icons */
-.fa, .fas, .far, .fal, .fab,
+.fa,
+.fas,
+.far,
+.fal,
+.fab,
 [class*="fa-"]:before,
 [class^="fa-"]:before {
   font-family: 'Font Awesome 5 Pro' !important;
 }
 
 /* Montserrat Font Weight Classes */
-.font-thin { font-weight: 100 !important; }
-.font-extralight { font-weight: 200 !important; }
-.font-light { font-weight: 300 !important; }
-.font-regular { font-weight: 400 !important; }
-.font-medium { font-weight: 500 !important; }
-.font-semibold { font-weight: 600 !important; }
-.font-bold { font-weight: 700 !important; }
-.font-extrabold { font-weight: 800 !important; }
-.font-black { font-weight: 900 !important; }
+.font-thin {
+  font-weight: 100 !important;
+}
+
+.font-extralight {
+  font-weight: 200 !important;
+}
+
+.font-light {
+  font-weight: 300 !important;
+}
+
+.font-regular {
+  font-weight: 400 !important;
+}
+
+.font-medium {
+  font-weight: 500 !important;
+}
+
+.font-semibold {
+  font-weight: 600 !important;
+}
+
+.font-bold {
+  font-weight: 700 !important;
+}
+
+.font-extrabold {
+  font-weight: 800 !important;
+}
+
+.font-black {
+  font-weight: 900 !important;
+}
 
 /* Ensure all headings use Montserrat */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: 'Montserrat', sans-serif !important;
 }
 
 /* Ensure all text elements use Montserrat */
-p, span, div, a, li, td, th, label, input, textarea, select, button {
+p,
+span,
+div,
+a,
+li,
+td,
+th,
+label,
+input,
+textarea,
+select,
+button {
   font-family: 'Montserrat', sans-serif !important;
 }
 
@@ -3684,7 +3730,7 @@ body[data-aos-easing=ease] [data-aos] {
 
 .header-style-two#xb-header-area .xb-header-area-sticky {
   padding: 15px 0;
-  background-color: #16171B;
+  background-color: #1B4638;
 }
 
 .header-style-two .side-menu {
@@ -3931,7 +3977,7 @@ body[data-aos-easing=ease] [data-aos] {
   -o-transition: 0.6s;
   transition: 0.6s;
   visibility: hidden;
-  background-color: #16171b;
+  background-color: #1B4638;
 }
 
 #xb-header-area .xb-header-area-sticky.xb-header-fixed {
@@ -4036,7 +4082,7 @@ body[data-aos-easing=ease] [data-aos] {
   top: calc(100% + 10px);
   opacity: 0;
   visibility: hidden;
-  background: #16171b;
+  background: #1B4638;
   left: 0;
   padding: 21px 0;
   -webkit-transition: 0.3s;
@@ -4860,7 +4906,7 @@ body .mfp-wrap .mfp-container .mfp-content .mfp-close:hover::after {
 }
 
 .xb-blur {
-  background: var(--color-primary);
+  background: var(--text-secondary);
   filter: blur(139px);
   height: 481px;
   width: 481px;
@@ -5142,7 +5188,7 @@ body .mfp-wrap .mfp-container .mfp-content .mfp-close:hover::after {
 
 .widget__search input {
   height: 60px;
-  background-color: #16171B;
+  background-color: #1B4638;
   padding: 20px;
   border: 0;
   font-size: 16px;
@@ -6177,7 +6223,7 @@ body .mfp-wrap .mfp-container .mfp-content .mfp-close:hover::after {
 /*  06. services
 /*----------------------------------------*/
 .xb-service-box {
-  background-color: #16171B;
+  background-color: #1B4638;
   z-index: 1;
   position: relative;
   -webkit-transition: 0.3s;
@@ -6766,7 +6812,7 @@ body .mfp-wrap .mfp-container .mfp-content .mfp-close:hover::after {
 }
 
 .sd-details {
-  background: #16171B;
+  background: #1B4638;
   padding: 40px 36px;
 }
 
@@ -8095,7 +8141,7 @@ body .mfp-wrap .mfp-container .mfp-content .mfp-close:hover::after {
 .xb-award-box .xb-item--arrow {
   height: 55px;
   width: 55px;
-  background: #16171B;
+  background: #1B4638;
   font-size: 22px;
   align-items: center;
   justify-content: center;
@@ -8141,7 +8187,7 @@ body .mfp-wrap .mfp-container .mfp-content .mfp-close:hover::after {
 }
 
 .award-area .award-inner {
-  background: #16171B;
+  background: #1B4638;
   border-radius: 15px;
   padding: 74px 51px;
   position: relative;
@@ -8583,7 +8629,7 @@ body .mfp-wrap .mfp-container .mfp-content .mfp-close:hover::after {
   height: 100%;
   width: 100%;
   content: '';
-  background-color: #16171B;
+  background-color: #1B4638;
   opacity: 0;
   z-index: -1;
   -webkit-transform: scale(0.9);
@@ -8891,7 +8937,7 @@ article .post-title a {
 }
 
 blockquote {
-  background-color: #16171B;
+  background-color: #1B4638;
   background-repeat: no-repeat;
   background-size: cover;
   padding: 40px 55px;
@@ -9132,7 +9178,7 @@ blockquote .quote {
   margin-top: 0;
   top: 0;
   text-decoration: none;
-  background: #16171B;
+  background: #1B4638;
   padding: 9px 20px;
   border-radius: 3px;
   -webkit-border-radius: 3px;
@@ -9567,7 +9613,7 @@ blockquote .quote {
 }
 
 .about-brand .about-slider {
-  background: #16171B;
+  background: #1B4638;
   margin: 0;
 }
 
@@ -10112,7 +10158,7 @@ blockquote .quote {
 }
 
 .career-cta {
-  background-color: #16171B;
+  background-color: #1B4638;
   padding: 120px 90px;
   padding-top: 90px;
 }
@@ -10592,7 +10638,7 @@ blockquote .quote {
 
 .shop-sidebar .widget_price_filter #slider-range {
   height: 6px;
-  background: #16171B;
+  background: #1B4638;
   border: 0;
   border-radius: 50px;
   margin-bottom: 12px;
@@ -11396,7 +11442,7 @@ blockquote .quote {
 .add_payment_method #payment,
 .woocommerce-cart #payment,
 .woocommerce-checkout #payment {
-  background: #16171b;
+  background: #1B4638;
   border-radius: 0;
   padding: 25px;
 }
@@ -11530,7 +11576,7 @@ blockquote .quote {
   margin: 0;
   margin-right: 20px;
   padding: 10px 20px;
-  background-color: #16171b;
+  background-color: #1B4638;
 }
 
 .woocommerce-cart .woocommerce table.shop_table td.actions input:focus {
@@ -11631,7 +11677,7 @@ blockquote .quote {
   line-height: 17px;
   color: #fff;
   border-radius: 50%;
-  background: #16171b;
+  background: #1B4638;
 }
 
 .woocommerce #respond input#submit.disabled,
@@ -12003,7 +12049,7 @@ blockquote .quote {
 .woocommerce-error,
 .woocommerce-info,
 .woocommerce-message {
-  background-color: #16171b;
+  background-color: #1B4638;
   width: auto;
   padding: 15px 15px 15px 35px;
   margin: 0 0 2em;
@@ -12142,7 +12188,7 @@ abbr[title] {
   height: 55px;
   box-shadow: none;
   padding: 10px 20px;
-  background-color: #16171b;
+  background-color: #1B4638;
   border: 2px solid transparent;
 }
 
@@ -13312,7 +13358,7 @@ abbr[title] {
 
 .overlay-menu .overlay-wrap .right-area {
   text-align: left;
-  background: #16171B;
+  background: #1B4638;
 }
 
 .overlay-menu .overlay-wrap .left-area nav {
@@ -13644,7 +13690,7 @@ abbr[title] {
   width: 100%;
   height: 100%;
   position: absolute;
-  background: linear-gradient(356deg, #16171B 18.22%, rgba(22, 23, 27, 0.7) 195.47%, rgba(22, 23, 27, 0) 360.67%);
+  background: linear-gradient(356deg, #1B4638 18.22%, rgba(22, 23, 27, 0.7) 195.47%, rgba(22, 23, 27, 0) 360.67%);
   z-index: -1;
 }
 
@@ -13899,7 +13945,7 @@ abbr[title] {
 }
 
 .footer-sec-three {
-  background: linear-gradient(356deg, #16171B 18.22%, rgba(22, 23, 27, 0.7) 195.47%, rgba(22, 23, 27, 0) 360.67%);
+  background: linear-gradient(356deg, #1B4638 18.22%, rgba(22, 23, 27, 0.7) 195.47%, rgba(22, 23, 27, 0) 360.67%);
 }
 
 .footer-sec-three .footer-title {

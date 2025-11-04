@@ -17,7 +17,7 @@
         height: 100%;
         width: 100%;
         content: '';
-        background-color: #16171B;
+        background-color: #1B4638;
         opacity: 0;
         z-index: -1;
         @include transform(scale(.9));
@@ -238,7 +238,7 @@ article .post-title {
     }
 }
 blockquote {
-    background-color: #16171B;
+    background-color: #1B4638;
     background-repeat: no-repeat;
     background-size: cover;
     padding: 40px 55px;
@@ -427,7 +427,7 @@ blockquote {
         margin-top: 0;
         top: 0;
         text-decoration: none;
-        background: #16171B;
+        background: #1B4638;
         padding: 9px 20px;
         @include border-radius(3px);
         &:hover {

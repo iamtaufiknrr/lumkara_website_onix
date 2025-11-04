@@ -393,7 +393,7 @@ body .mfp-wrap .mfp-container .mfp-content .mfp-close:hover::before, body .mfp-w
 }
 
 .xb-blur {
-    background: var(--color-primary);
+    background: var(--text-secondary);
     filter: blur(139px);
     height: 481px;
     width: 481px;
@@ -594,7 +594,7 @@ body .mfp-wrap .mfp-container .mfp-content .mfp-close:hover::before, body .mfp-w
         position: relative;
         input {
             height: 60px;
-            background-color: #16171B;
+            background-color: #1B4638;
             padding: 20px;
             border: 0;
             font-size: 16px;
