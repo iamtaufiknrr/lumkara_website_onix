@@ -2676,15 +2676,41 @@ h6 {
 
 @-webkit-keyframes zoominup {
   0% {
-    transform: scale(1.2);
+    -webkit-transform: scale(0.9);
+    transform: scale(0.9);
+    opacity: 0.8;
   }
 
   50% {
-    transform: scale(1);
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+    opacity: 1;
   }
 
   100% {
-    transform: scale(1.2);
+    -webkit-transform: scale(0.9);
+    transform: scale(0.9);
+    opacity: 0.8;
+  }
+}
+
+@keyframes zoominup {
+  0% {
+    -webkit-transform: scale(0.9);
+    transform: scale(0.9);
+    opacity: 0.8;
+  }
+
+  50% {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+    opacity: 1;
+  }
+
+  100% {
+    -webkit-transform: scale(0.9);
+    transform: scale(0.9);
+    opacity: 0.8;
   }
 }
 
@@ -13555,7 +13581,7 @@ abbr[title] {
   -moz-transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
-  width: 50px;
+  width: 120px;
   text-align: center;
 }
 
@@ -13568,8 +13594,9 @@ abbr[title] {
   position: relative;
   z-index: 2;
   margin: auto;
-  max-width: 100%;
+  width: 100px;
   height: auto;
+  max-width: none;
 }
 
 .xb-footer-bg {
