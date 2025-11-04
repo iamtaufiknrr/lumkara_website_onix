@@ -156,7 +156,7 @@
 
 ---
 
-## 🌐 MULTILINGUAL USAGE
+## 🌐 MULTILINGUAL USAGE`
 
 ### For International Tools:
 - **Midjourney**: Use English prompts with --ar ratios
