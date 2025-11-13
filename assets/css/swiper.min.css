@@ -332,10 +332,10 @@ button.swiper-pagination-bullet {
     display: none
 }
 .swiper-scrollbar {
-    border-radius: 10px;
+    border-radius: 1px;
     position: relative;
     -ms-touch-action: none;
-    background: rgba(0, 0, 0, .1)
+    background: #675c54
 }
 .swiper-container-horizontal > .swiper-scrollbar {
     position: absolute;

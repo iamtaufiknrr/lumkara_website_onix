@@ -6928,7 +6928,7 @@ body .mfp-wrap .mfp-container .mfp-content .mfp-close:hover::after {
 }
 
 .service-gallery-slider .swiper-pagination .swiper-pagination-bullet {
-  width: 12px;
+  width: 1px;
   height: 12px;
   background-color: #B2B6B8;
   opacity: 1;
@@ -14076,4 +14076,29 @@ abbr[title] {
   #portfolioGrid .grid-item {
     width: 100% !important;
   }
+}
+
+/* Cus
+tom Scrollbar Color */
+::-webkit-scrollbar {
+  width: 1px;
+}
+
+::-webkit-scrollbar-track {
+  background: #675c54;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #675c54;
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #7a6d64;
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #675c54 #675c54;
 }
