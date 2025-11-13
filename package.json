@@ -1,0 +1,11 @@
+{
+  "name": "ovix-project",
+  "version": "1.0.0",
+  "description": "Lumakara website",
+  "scripts": {
+    "dev": "browser-sync start --server --files '**/*.html, **/*.css, **/*.js' --no-notify --port 3000"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.29.3"
+  }
+}

@@ -20,9 +20,19 @@
 .header-area {
     position: relative;
     z-index: 5;
+    background-color: #1B4638;
     .xb-header {
         @include respond(md) {
             padding: 10px 0;
+        }
+    }
+}
+
+.header-logo {
+    img {
+        height: 50px;
+        @include respond(md) {
+            height: 40px;
         }
     }
 }

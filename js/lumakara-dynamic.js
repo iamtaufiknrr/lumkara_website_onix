@@ -12,11 +12,11 @@ class LumakaraDynamic {
         this.loadAPI().then(() => {
             this.loadDynamicContent();
         });
-        
+
         // Setup real-time sync with CMS
         this.setupRealTimeSync();
     }
-    
+
     setupRealTimeSync() {
         // BroadcastChannel for cross-tab communication
         if (typeof BroadcastChannel !== 'undefined') {
@@ -30,7 +30,7 @@ class LumakaraDynamic {
                 }
             });
         }
-        
+
         // Periodic refresh every 30 seconds (fallback)
         setInterval(() => {
             this.loadDynamicContent();
@@ -55,8 +55,8 @@ class LumakaraDynamic {
     loadDynamicContent() {
         // Load different content based on current page
         const currentPage = this.getCurrentPage();
-        
-        switch(currentPage) {
+
+        switch (currentPage) {
             case 'index':
                 this.loadHomePage();
                 break;
@@ -95,48 +95,48 @@ class LumakaraDynamic {
 
         try {
             const posts = await this.api.getBlogPosts(3); // Get latest 3 posts
-            
+
             if (posts && posts.length > 0) {
                 // Update existing blog items with dynamic content
                 const blogItems = blogContainer.querySelectorAll('[data-blog-item]');
-                
+
                 posts.forEach((post, index) => {
                     if (blogItems[index]) {
                         const blogItem = blogItems[index];
-                        
+
                         // Update image
                         const img = blogItem.querySelector('.xb-item--img img');
                         if (img && post.image) {
                             img.src = post.image;
                             img.alt = post.title;
                         }
-                        
+
                         // Update author
                         const authorName = blogItem.querySelector('.author-name');
                         if (authorName) authorName.textContent = post.author;
-                        
+
                         // Update date
                         const dateElement = blogItem.querySelector('.blog-date');
                         if (dateElement) dateElement.textContent = this.formatDate(post.date);
-                        
+
                         // Update title
                         const titleElement = blogItem.querySelector('.blog-title');
                         if (titleElement) titleElement.innerHTML = this.formatTitle(post.title);
-                        
+
                         // Update excerpt
                         const excerptElement = blogItem.querySelector('.blog-excerpt');
                         if (excerptElement) {
                             excerptElement.innerHTML = this.formatExcerpt(this.stripHTML(post.content));
                         }
-                        
+
                         // Update link
                         const linkElement = blogItem.querySelector('.blog-link');
                         if (linkElement) linkElement.href = `blog-single.html?slug=${post.slug}`;
                     }
                 });
-                
+
                 console.log('✅ Blog posts loaded successfully from CMS');
-                this.showUpdateIndicator('Blog content updated from CMS');
+                this.showUpdateIndicator('update');
             } else {
                 console.log('📝 Using default blog content');
             }
@@ -144,7 +144,7 @@ class LumakaraDynamic {
             console.log('📝 Using default blog content (CMS data not available)');
         }
     }
-    
+
     formatTitle(title) {
         // Add line breaks for better layout (similar to original)
         if (title.length > 40) {
@@ -154,7 +154,7 @@ class LumakaraDynamic {
         }
         return title;
     }
-    
+
     formatExcerpt(content) {
         const excerpt = this.truncateText(content, 100);
         // Add line break for better layout
@@ -171,7 +171,7 @@ class LumakaraDynamic {
         if (!servicesContainer) return;
 
         const services = (await this.api.getServices()).slice(0, 6); // Get first 6 services
-        
+
         let servicesHTML = '';
         services.forEach((service, index) => {
             const delay = (index + 1) * 0.1;
@@ -207,7 +207,7 @@ class LumakaraDynamic {
         if (!blogContainer) return;
 
         const posts = this.api.getBlogPosts();
-        
+
         let blogHTML = '';
         posts.forEach(post => {
             blogHTML += `
@@ -255,7 +255,7 @@ class LumakaraDynamic {
     loadBlogSingle() {
         const urlParams = new URLSearchParams(window.location.search);
         const slug = urlParams.get('slug');
-        
+
         if (!slug) return;
 
         const post = this.api.getBlogPost(slug);
@@ -303,7 +303,7 @@ class LumakaraDynamic {
         if (!servicesContainer) return;
 
         const services = this.api.getServices();
-        
+
         let servicesHTML = '';
         services.forEach((service, index) => {
             const delay = (index + 1) * 0.1;
@@ -350,7 +350,7 @@ class LumakaraDynamic {
     loadServiceSingle() {
         const urlParams = new URLSearchParams(window.location.search);
         const serviceId = urlParams.get('id');
-        
+
         if (!serviceId) return;
 
         const service = this.api.getService(serviceId);
@@ -374,7 +374,7 @@ class LumakaraDynamic {
 
         const featuresContainer = document.querySelector('.service-single-features');
         if (featuresContainer) {
-            featuresContainer.innerHTML = service.features.map(feature => 
+            featuresContainer.innerHTML = service.features.map(feature =>
                 `<li><i class="fas fa-check-circle"></i> ${feature}</li>`
             ).join('');
         }
@@ -397,7 +397,7 @@ class LumakaraDynamic {
 
     updateSiteSettings() {
         const settings = this.api.getSettings();
-        
+
         // Update site title in header
         const siteTitleElements = document.querySelectorAll('.site-title');
         siteTitleElements.forEach(el => el.textContent = settings.siteName || 'Lumakara');
@@ -441,7 +441,7 @@ class LumakaraDynamic {
         if (!query.trim()) return;
 
         const results = this.api.search(query);
-        
+
         // Create search results page or modal
         this.displaySearchResults(results, query);
     }
@@ -559,7 +559,7 @@ class LumakaraDynamic {
         tmp.innerHTML = html;
         return tmp.textContent || tmp.innerText || '';
     }
-    
+
     showUpdateIndicator(message) {
         // Show subtle update indicator
         const indicator = document.createElement('div');
@@ -581,14 +581,14 @@ class LumakaraDynamic {
         indicator.innerHTML = `
             <i class="fas fa-sync-alt fa-spin"></i> ${message}
         `;
-        
+
         document.body.appendChild(indicator);
-        
+
         // Fade in
         setTimeout(() => {
             indicator.style.opacity = '1';
         }, 100);
-        
+
         // Fade out and remove
         setTimeout(() => {
             indicator.style.opacity = '0';
@@ -604,7 +604,7 @@ class LumakaraDynamic {
 // Initialize dynamic content when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     const dynamicLoader = new LumakaraDynamic();
-    
+
     // Listen for CMS updates (real-time sync)
     window.addEventListener('storage', (e) => {
         if (e.key && e.key.startsWith('lumakara_')) {
@@ -612,7 +612,7 @@ document.addEventListener('DOMContentLoaded', () => {
             dynamicLoader.loadDynamicContent();
         }
     });
-    
+
     // Listen for custom CMS update events
     window.addEventListener('lumakaraCMSUpdate', (e) => {
         console.log('🔄 CMS update detected, refreshing content...');
@@ -624,28 +624,28 @@ document.addEventListener('DOMContentLoaded', () => {
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
         const dynamicLoader = new LumakaraDynamic();
-        
+
         // Real-time sync listeners
         window.addEventListener('storage', (e) => {
             if (e.key && e.key.startsWith('lumakara_')) {
                 dynamicLoader.loadDynamicContent();
             }
         });
-        
+
         window.addEventListener('lumakaraCMSUpdate', () => {
             dynamicLoader.loadDynamicContent();
         });
     });
 } else {
     const dynamicLoader = new LumakaraDynamic();
-    
+
     // Real-time sync listeners
     window.addEventListener('storage', (e) => {
         if (e.key && e.key.startsWith('lumakara_')) {
             dynamicLoader.loadDynamicContent();
         }
     });
-    
+
     window.addEventListener('lumakaraCMSUpdate', () => {
         dynamicLoader.loadDynamicContent();
     });
