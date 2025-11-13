@@ -163,17 +163,17 @@ body {
 }
 
 body::-webkit-scrollbar {
-  width: 7px;
+  width: 1px;
 }
 
 body::-webkit-scrollbar-track {
   background: var(--xb-track-color);
-  border-radius: 10px;
+  border-radius: 1px;
 }
 
 body::-webkit-scrollbar-thumb {
   background: var(--color-primary);
-  border-radius: 10px;
+  border-radius: 1px;
 }
 
 img {
@@ -14089,12 +14089,12 @@ tom Scrollbar Color */
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #675c54;
-  border-radius: 6px;
+  background: #A3968D;
+  border-radius: 1px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #7a6d64;
+  background: #A3968D;
 }
 
 /* Firefox */
