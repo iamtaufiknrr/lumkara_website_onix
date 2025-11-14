@@ -6788,7 +6788,7 @@ body .mfp-wrap .mfp-container .mfp-content .mfp-close:hover::after {
 }
 
 .section-title {
-  margin-top: -7px;
+  margin-top: 60px;
 }
 
 .service-slider {
@@ -6974,15 +6974,15 @@ body .mfp-wrap .mfp-container .mfp-content .mfp-close:hover::after {
 /*----------------------------------------*/
 .xb-couter-box .xb-item--title {
   font-size: 60px;
-  color: #000;
+  color: var(--color-heading);
   font-weight: 400;
   line-height: 1.2;
   letter-spacing: -1.2px;
 }
 
 .xb-couter-box .xb-item--content {
-  color: #000;
-  font-weight: 700;
+  color: var(--color-black);
+  font-weight: 400;
   text-transform: uppercase;
 }
 
@@ -7401,7 +7401,6 @@ body .mfp-wrap .mfp-container .mfp-content .mfp-close:hover::after {
 .xb-team .xb-item--icon li a {
   height: 36px;
   width: 36px;
-  background: var(--color-white);
   border-radius: 50px;
   display: flex;
   align-items: center;
@@ -12762,7 +12761,7 @@ abbr[title] {
 .circle-btn .button__bg::after {
   content: '';
   position: absolute;
-  background: #675c54;
+  background: var(--color-heading);
 }
 
 .circle-btn .button__bg::before {
@@ -12800,17 +12799,17 @@ abbr[title] {
 }
 
 .port-btn {
-  height: 135px;
-  width: 135px;
-  background: var(--color-primary);
+  height: 120px;
+  width: 120px;
+  background: var(--color-heading);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 24px;
+  font-size: 18px;
   line-height: 32px;
-  font-weight: 400;
-  color: #000000;
+  font-weight: 600;
+  color: var(--color-black);
   text-transform: uppercase;
   z-index: 1;
   text-align: center;
@@ -13771,16 +13770,16 @@ abbr[title] {
 }
 
 .xb-footer .xb-item--head {
-  color: var(--color-black);
-  font-size: 60px;
-  line-height: 61px;
+  color: var(--color-white);
+  font-size: 45px;
+  line-height: 150px;
   text-transform: uppercase;
   font-family: var(--font-heading);
 }
 
 @media (max-width: 991px) {
   .xb-footer .xb-item--head {
-    font-size: 50px;
+    font-size: 45px;
   }
 }
 
@@ -14015,7 +14014,7 @@ abbr[title] {
 }
 
 .footer-nav li a {
-  color: var(--color-default);
+  color: var(--color-white);
   -webkit-transition: 0.3s;
   -o-transition: 0.3s;
   transition: 0.3s;
@@ -14099,6 +14098,6 @@ tom Scrollbar Color */
 
 /* Firefox */
 * {
-  scrollbar-width: thin;
+  scrollbar-width: none;
   scrollbar-color: #675c54 #675c54;
 }

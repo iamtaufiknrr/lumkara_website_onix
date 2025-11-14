@@ -108,7 +108,7 @@
 
 ### **3. Digital Marketing Bootcamp** - Rp 2,500,000
 - 50+ Video Tutorial
-- E-book Guide
+- E-let's talk Guide
 - Templates & Tools
 - Lifetime Access
 

@@ -70,7 +70,7 @@ class LumakaraEcommerce {
                 image: "assets/img/shop/digital-marketing-course.jpg",
                 features: [
                     "50+ Video Tutorial (Total 20 jam)",
-                    "E-book Digital Marketing Guide (200+ halaman)",
+                    "E-let's talk Digital Marketing Guide (200+ halaman)",
                     "Template & Tools (50+ file)",
                     "Case Study Real Project",
                     "Private Telegram Group",
@@ -104,7 +104,7 @@ class LumakaraEcommerce {
             {
                 id: 5,
                 name: "Business Automation Consultation",
-                description: "Konsultasi 1-on-1 untuk mengidentifikasi dan mengimplementasikan otomasi dalam bisnis Anda.",
+                description: "booktasi 1-on-1 untuk mengidentifikasi dan mengimplementasikan otomasi dalam bisnis Anda.",
                 price: 3000000,
                 originalPrice: 4000000,
                 category: "Consultation",
