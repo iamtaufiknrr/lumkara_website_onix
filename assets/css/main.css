@@ -6788,7 +6788,7 @@ body .mfp-wrap .mfp-container .mfp-content .mfp-close:hover::after {
 }
 
 .section-title {
-  margin-top: 10px;
+  margin-top: 0px;
 }
 
 .service-slider {
